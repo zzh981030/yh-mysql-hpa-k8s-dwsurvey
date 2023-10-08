@@ -1,0 +1,24 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: myserver-dwsurvey
+spec:
+  maxReplicas: 100
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: myserver-dwsurvey
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        averageUtilization: 80
+        type: Utilization
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        averageValue: 5000Mi
+        type: AverageValue
