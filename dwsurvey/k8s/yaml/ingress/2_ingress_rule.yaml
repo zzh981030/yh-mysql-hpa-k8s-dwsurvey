@@ -1,0 +1,28 @@
+# ingress规则中，要指定需要绑定暴露的svc名称
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-test-nginx
+  annotations: 
+    kubernetes.io/ingress.class: "nginx"    # 指定 Ingress Controller 的类型
+    nginx.ingress.kubernetes.io/use-regex: "true"    # 指定我们的 rules 的 path 可以使用正则表达式
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "600"    # 连接超时时间，默认为 5s
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"      # 后端服务器回转数据超时时间，默认为 60s
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"      # 后端服务器响应超时时间，默认为 60s
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"         # 客户端上传文件，最大大小，默认为 20m
+spec:
+  rules:         #定义路由规则
+  - host: www.zzhtestweb.com      # 主机名，只能是域名，修改为项目域名
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific  # 定义路径类型为 ImplementationSpecific
+        backend:
+                #serviceName: test-nginx          # 后台部署的 Service Name
+                #servicePort: 80       i           # 后台部署的 Service Port
+          service:                        # 定义代理的 svc 信息
+          # name: test-nginx               # 指定 svc 的名称
+            name: myserver-dwsurvey               # 指定 svc 的名称
+            port:                         # 定义 svc 的端口
+              number: 80
+

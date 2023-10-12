@@ -1,0 +1,4 @@
+这个目录下记录了集群外访问pod的三种方式：
+1.NodePort方式（在DWsurvery部署文件中设置的）
+2.ExternalName方式：<CLUSTER-IP>允许集群内部通过此IP访问，集群外可通过此<EXTERNAL-IP>访问集群内部，但需要先手动向集群的任意一个节点添加上该虚拟IP。手工操作麻烦，不建议使用。
+3.Ingress方式：包含Ingress控制器和Ingress策略。外部请求通过Ingress控制器访问service，进而访问pod。这里在配置Ingress的网络时使用了LoadBalancer方式，通过配置metallb为其自动分配IP，集群外且在同一子网下的其他节点即可通过Ingress策略中的域名解析访问到服务。

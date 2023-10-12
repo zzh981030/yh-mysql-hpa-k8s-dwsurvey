@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service                                  #创建一个svc
+metadata:
+  name: myserver-dwsurvey2
+  labels:
+    run: myserver-dwsurvey2
+spec:
+  ports:
+    - port: 80          #服务访问端口
+      targetPort: 8080    #对应容器端口
+  selector:
+    run: myserver-dwsurvey   #选择器，匹配myserver-dwsurvey控制器
+  externalIPs:
+  - 192.168.0.200

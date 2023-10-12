@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: default-http-backend   #不能随便改，ingress服务缺少这个名字"default-http-backend"的服务。
+  namespace: kube-system      
+spec:
+  selector:
+    #app: ingress-nginx-controller
+    app: ingress-controller   #名字随便定义
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
