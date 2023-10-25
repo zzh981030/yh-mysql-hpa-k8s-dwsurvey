@@ -3,7 +3,7 @@ kind: HorizontalPodAutoscaler
 metadata:
   name: myserver-dwsurvey
 spec:
-  maxReplicas: 300
+  maxReplicas: 20
   minReplicas: 1
   scaleTargetRef:
     apiVersion: apps/v1
@@ -14,13 +14,13 @@ spec:
     resource:
       name: cpu
       target:
-        averageUtilization: 50
+        averageUtilization: 80
         type: Utilization
   - type: Resource
     resource:
       name: memory
       target:
-        averageUtilization: 50
-        type: Utilization
-        #averageValue: 5000Mi
-        #type: AverageValue
+              #averageUtilization: 80
+              #type: Utilization
+        averageValue: 500Mi
+        type: AverageValue
